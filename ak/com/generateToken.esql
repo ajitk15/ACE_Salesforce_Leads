@@ -1,0 +1,13 @@
+BROKER SCHEMA ak.com
+
+CREATE COMPUTE MODULE generateToken
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		SET OutputRoot.HTTPRequestHeader."Content-Type" = 'application/x-www-form-urlencoded';
+		DECLARE payload CHARACTER;
+		SET payload = 'grant_type=password&client_id=3MVG95mg0lk4bathBPmPqbvlsRaOeTThhLTiFKRceikIXREKJJ_sBo9vJRsVFCr7vVW8SMT1PYIs7bxRoLK_g&client_secret=D3C453E97732CA182A18910F39A5363719D78417C4C1A4A4AB70BACE040B8A48&username=username&password=passwordpaorGzqDp8D1D3ExmvpVEMpn';
+		SET OutputRoot.BLOB.BLOB = CAST(payload AS BLOB CCSID 1208 ENCODING 815);
+		RETURN TRUE;
+	END;
+END MODULE;

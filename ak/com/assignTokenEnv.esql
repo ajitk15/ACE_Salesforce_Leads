@@ -1,0 +1,12 @@
+BROKER SCHEMA ak.com
+
+DECLARE SoauthToken SHARED CHARACTER '';
+CREATE COMPUTE MODULE assignTokenEnv
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET SoauthToken =  InputRoot.JSON.Data.access_token;
+
+		RETURN TRUE;
+	END;
+END MODULE;

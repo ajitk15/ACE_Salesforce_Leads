@@ -1,0 +1,19 @@
+BROKER SCHEMA ak.com
+CREATE COMPUTE MODULE getLeadDetails
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		-- 00Q5h00000QBVmTEAX
+		SET Environment.leadId = InputRoot.JSON.Data.id;
+
+		IF SoauthToken <> '' THEN
+			DECLARE oauthToken CHARACTER SoauthToken;
+			SET OutputRoot.HTTPRequestHeader."Authorization" = 'Bearer ' || oauthToken;
+			SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'https://flow-customization-367.my.salesforce.com/services/data/v59.0/sobjects/Lead/' || Environment.leadId;
+		ELSE
+			PROPAGATE TO TERMINAL 'out1';
+
+		END IF;
+		RETURN TRUE;
+	END;
+END MODULE;
